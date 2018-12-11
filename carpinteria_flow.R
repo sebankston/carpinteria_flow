@@ -8,3 +8,5 @@ daily_flow_summary <- carp_flow %>% filter(month(date_time) >= 1 & month(date_ti
 annual_flow_summary <- daily_flow_summary %>% group_by(Year) %>% summarize(annual_mean_flow = round(mean(mean_daily_flow, na.rm = TRUE), digits = 0))
 
 all_flow_summary <- annual_flow_summary %>% summarize(low_flow = quantile(annual_flow_summary$annual_mean_flow, probs = .50), high_flow = quantile(annual_flow_summary$annual_mean_flow, probs = 0.99)) %>% print()
+
+num_years <- n_distinct(annual_flow_summary$Year)
