@@ -10,3 +10,13 @@ annual_flow_summary <- daily_flow_summary %>% group_by(Year) %>% summarize(annua
 all_flow_summary <- daily_flow_summary %>% summarize(low_flow = quantile(daily_flow_summary$mean_daily_flow, probs = .50, na.rm = TRUE), high_flow = quantile(daily_flow_summary$mean_daily_flow, probs = 0.99, na.rm = TRUE)) %>% print()
 
 num_years <- n_distinct(annual_flow_summary$Year)
+
+daily_flow_summary %>% ggplot(aes(x = mean_daily_flow)) + geom_histogram(binwidth = .5) + scale_x_log10() + theme_bw() 
+
+range(daily_flow_summary$mean_daily_flow, na.rm = TRUE)
+
+str(daily_flow_summary)
+
+min(daily_flow_summary$mean_daily_flow)
+
+daily_flow_summary %>% top_n(n = 20, wt = mean_daily_flow) %>% arrange(desc(mean_daily_flow))
